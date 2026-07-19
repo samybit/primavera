@@ -34,7 +34,10 @@ export function HeroSection() {
         {/* Subtitle + CTAs — pushed to bottom */}
         <div className="mt-auto max-w-xl">
           <p className="text-lg sm:text-2xl lg:text-3xl font-serif italic text-white font-normal leading-snug drop-shadow-[0_4px_16px_rgba(0,0,0,0.85)]">
-            Modern enterprise tools designed for building resilient cloud architecture and getting that scale.
+            <span className="font-tangerine text-3xl sm:text-4xl lg:text-5xl text-[#D4AF37] not-italic font-bold pr-0.5 select-none">
+              M
+            </span>
+            odern enterprise tools designed for building resilient cloud architecture and getting that scale.
           </p>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
