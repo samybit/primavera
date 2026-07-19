@@ -99,7 +99,7 @@ public Flux<TelemetryEvent> getLiveStream() {
   },
   {
     id: "spring-ai",
-    roman: "IX",
+    roman: "VI",
     title: "Spring AI Ecosystem",
     accent: "#E76F51",
     icon: Bot,
@@ -124,21 +124,21 @@ public class AIController {
 
 export function EcosystemGrid() {
   return (
-    <section className="w-full py-16 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto">
+    <section className="w-full py-16 px-6 sm:px-12 max-w-[1400px]">
       
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-4 border-b border-[#D4AF37]/20">
         <div>
           <div className="flex items-center gap-2 text-xs font-mono text-[#D4AF37] uppercase tracking-widest">
-            <span>Volume I</span>
+            <span>VOLUME I</span>
             <span>—</span>
-            <span>Framework Modules</span>
+            <span>FRAMEWORK MODULES</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#F4F1EA] mt-1">
+          <h2 className="text-3xl sm:text-5xl font-bold text-[#F4F1EA] mt-1">
             Spring Framework <span className="spring-gradient-text">Ecosystem</span>
           </h2>
         </div>
-        <p className="text-sm font-serif-italic text-[#A69E8F] mt-2 md:mt-0 max-w-md">
+        <p className="text-sm font-serif-italic text-[#A69E8F] mt-3 md:mt-0 max-w-md leading-relaxed">
           Curated deep dives into the essential blocks powering modern production systems.
         </p>
       </div>

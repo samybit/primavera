@@ -9,22 +9,19 @@ import { Footer } from "@/components/Footer";
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-[#14120B] text-[#F4F1EA] relative selection:bg-white/30 selection:text-white">
-      {/* Header */}
+      {/* Absolute Top Header Navigation */}
       <Navigation />
 
-      {/* Hero Section & Side Navigation */}
-      <div className="relative w-full">
-        <SideIndexNav />
-        <HeroSection />
-      </div>
+      {/* Fixed Left Roman Numeral Index Menu */}
+      <SideIndexNav />
 
-      {/* Detailed Ecosystem Cards & Features */}
-      <main className="w-full bg-[#14120B] relative z-20">
+      {/* Main Content Area - Shifted Right to Leave Space for Fixed Left Index Menu */}
+      <main className="w-full lg:pl-64 flex-1 flex flex-col relative z-20">
+        <HeroSection />
         <EcosystemGrid />
         <JavaFeaturesSection />
+        <Footer />
       </main>
-
-      <Footer />
     </div>
   );
 }

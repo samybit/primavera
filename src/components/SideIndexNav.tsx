@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 interface IndexItem {
   roman: string;
@@ -17,12 +17,32 @@ const INDEX_ITEMS: IndexItem[] = [
   { roman: "VI", label: "Spring AI", sectionId: "spring-ai" },
   { roman: "VII", label: "Virtual Threads", sectionId: "virtual-threads" },
   { roman: "VIII", label: "JVM", sectionId: "jvm" },
-  { roman: "IX", label: "Architecture", sectionId: "architecture" },
-  { roman: "X", label: "Developer", sectionId: "developer" },
+  { roman: "IX", label: "Architecture", sectionId: "java-features" },
+  { roman: "X", label: "Developer", sectionId: "architecture" },
 ];
 
 export function SideIndexNav() {
   const [activeId, setActiveId] = useState("core");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 250;
+      for (const item of INDEX_ITEMS) {
+        const element = document.getElementById(item.sectionId);
+        if (element) {
+          const top = element.offsetTop;
+          const height = element.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            setActiveId(item.sectionId);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleScrollTo = (id: string) => {
     setActiveId(id);
@@ -34,23 +54,23 @@ export function SideIndexNav() {
 
   return (
     <>
-      {/* Desktop Left Index - Vertical Menu Matching the Reference Photo */}
-      <aside className="hidden lg:flex flex-col absolute left-6 top-32 z-30 w-44 pointer-events-auto select-none">
-        <div className="flex flex-col space-y-1.5 font-sans">
+      {/* Desktop Fixed Left Index - Follows user smoothly on scroll */}
+      <aside className="hidden lg:flex flex-col fixed left-6 sm:left-10 top-32 z-30 w-44 pointer-events-auto select-none">
+        <div className="flex flex-col space-y-2 font-sans">
           {INDEX_ITEMS.map((item) => {
             const isActive = activeId === item.sectionId;
             return (
               <button
                 key={item.sectionId}
                 onClick={() => handleScrollTo(item.sectionId)}
-                className={`w-full flex items-center justify-between py-0.5 text-left text-xs font-semibold tracking-wide transition-all ${
+                className={`w-full flex items-center justify-between py-0.5 text-left text-xs tracking-wide transition-all ${
                   isActive
-                    ? "text-white font-bold scale-[1.02]"
-                    : "text-white/70 hover:text-white"
+                    ? "text-white font-bold scale-[1.03]"
+                    : "text-white/60 hover:text-white font-medium"
                 }`}
               >
-                <span className="drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">{item.label}</span>
-                <span className="font-serif italic text-xs tracking-normal opacity-90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                <span className="drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">{item.label}</span>
+                <span className="font-serif italic text-xs tracking-normal opacity-90 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
                   {item.roman}
                 </span>
               </button>
@@ -59,8 +79,8 @@ export function SideIndexNav() {
         </div>
       </aside>
 
-      {/* Mobile Horizontal Index Pill Bar */}
-      <div className="lg:hidden sticky top-16 z-30 w-full bg-[#14120B]/90 border-b border-white/10 py-2 px-4 backdrop-blur-md overflow-x-auto no-scrollbar flex items-center gap-2">
+      {/* Mobile Sticky Horizontal Index Bar */}
+      <div className="lg:hidden sticky top-0 z-30 w-full bg-[#14120B]/95 border-b border-white/10 py-2.5 px-4 backdrop-blur-md overflow-x-auto no-scrollbar flex items-center gap-2">
         {INDEX_ITEMS.map((item) => {
           const isActive = activeId === item.sectionId;
           return (
