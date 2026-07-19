@@ -1,18 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import { FolderTree, Layers, Copy, Check, Terminal, FileCode2, Cpu, ArrowRight } from "lucide-react";
-
-type ViewTab = "ecosystem" | "folder-structure" | "mvc";
+import { FolderTree, Layers, Copy, Check, Terminal, FileCode2, Cpu } from "lucide-react";
 
 export function EcosystemGrid() {
-  const [activeTab, setActiveTab] = useState<ViewTab>("ecosystem");
-  const [copied, setCopied] = useState(false);
+  const [copiedSection, setCopiedSection] = useState<string | null>(null);
 
-  const handleCopy = (text: string) => {
+  const handleCopy = (sectionId: string, text: string) => {
     navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    setCopiedSection(sectionId);
+    setTimeout(() => setCopiedSection(null), 2000);
   };
 
   const ecosystemContent = `[ THE SPRING ECOSYSTEM ]
@@ -102,108 +99,58 @@ export function EcosystemGrid() {
 • VIEW (V)       : Formats response data. In REST APIs, Jackson converts models to JSON.
 • CONTROLLER (C) : Intercepts HTTP requests (@RestController), validates DTOs (@Valid), & delegates to Service layer.`;
 
-  const getCopyText = () => {
-    if (activeTab === "ecosystem") return ecosystemContent;
-    if (activeTab === "folder-structure") return folderContent;
-    return mvcContent;
-  };
-
   return (
-    <section id="core" className="w-full py-16 px-5 sm:px-10 lg:px-12 max-w-[1400px]">
+    <div className="w-full space-y-20 py-16 px-5 sm:px-10 lg:px-12 max-w-[1400px]">
       
-      {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-[#D4AF37]/20 gap-4">
-        <div>
-          <div className="flex items-center gap-2 text-xs font-mono text-[#D4AF37] uppercase tracking-widest">
-            <span>VOLUME I</span>
-            <span>—</span>
-            <span>ECOSYSTEM & ARCHITECTURE BLUEPRINT</span>
+      {/* ─────────────────── PART 1: THE SPRING ECOSYSTEM ─────────────────── */}
+      <section id="core" className="w-full scroll-mt-24">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-[#D4AF37]/20 gap-4">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-mono text-[#D4AF37] uppercase tracking-widest">
+              <span>VOLUME I · PART I</span>
+              <span>—</span>
+              <span>FRAMEWORK HIERARCHY</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#F4F1EA] mt-1 tracking-tight">
+              The Spring <span className="spring-gradient-text">Ecosystem</span>
+            </h2>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#F4F1EA] mt-1 tracking-tight">
-            Spring Blueprint <span className="spring-gradient-text">& Directory Anatomy</span>
-          </h2>
+          <p className="text-xs text-[#A69E8F] max-w-md font-sans leading-relaxed">
+            The complete module topology powering enterprise Java applications from core IoC container to cloud gateway routing.
+          </p>
         </div>
 
-        {/* View Switcher Tabs */}
-        <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-xl bg-[#1C1A12] border border-[#D4AF37]/30 shrink-0">
-          <button
-            onClick={() => setActiveTab("ecosystem")}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-              activeTab === "ecosystem"
-                ? "bg-[#D4AF37] text-[#14120B] shadow-[0_2px_10px_rgba(212,175,55,0.3)]"
-                : "text-[#A69E8F] hover:text-white hover:bg-white/5"
-            }`}
-          >
-            <Layers className="w-3.5 h-3.5" />
-            <span>The Spring Ecosystem</span>
-          </button>
+        <div className="w-full rounded-2xl bg-[#14120B] border border-[#D4AF37]/30 shadow-[0_20px_60px_rgba(0,0,0,0.9)] overflow-hidden font-mono text-xs">
+          <div className="px-5 py-3.5 bg-[#1C1A12] border-b border-[#D4AF37]/20 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-[#E76F51]/80" />
+              <div className="w-3 h-3 rounded-full bg-[#D4AF37]/80" />
+              <div className="w-3 h-3 rounded-full bg-[#6DB33F]/80" />
+              <span className="ml-3 text-[11px] text-[#A69E8F] font-mono flex items-center gap-1.5">
+                <Layers className="w-3.5 h-3.5 text-[#D4AF37]" />
+                spring-ecosystem-hierarchy.ascii
+              </span>
+            </div>
 
-          <button
-            onClick={() => setActiveTab("folder-structure")}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-              activeTab === "folder-structure"
-                ? "bg-[#D4AF37] text-[#14120B] shadow-[0_2px_10px_rgba(212,175,55,0.3)]"
-                : "text-[#A69E8F] hover:text-white hover:bg-white/5"
-            }`}
-          >
-            <FolderTree className="w-3.5 h-3.5" />
-            <span>Folder Structure</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab("mvc")}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-              activeTab === "mvc"
-                ? "bg-[#D4AF37] text-[#14120B] shadow-[0_2px_10px_rgba(212,175,55,0.3)]"
-                : "text-[#A69E8F] hover:text-white hover:bg-white/5"
-            }`}
-          >
-            <Cpu className="w-3.5 h-3.5" />
-            <span>Spring MVC Mechanics</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Main Terminal Window Display */}
-      <div className="w-full rounded-2xl bg-[#14120B] border border-[#D4AF37]/30 shadow-[0_20px_60px_rgba(0,0,0,0.9)] overflow-hidden font-mono text-xs">
-        
-        {/* Terminal Titlebar */}
-        <div className="px-5 py-3.5 bg-[#1C1A12] border-b border-[#D4AF37]/20 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-[#E76F51]/80" />
-            <div className="w-3 h-3 rounded-full bg-[#D4AF37]/80" />
-            <div className="w-3 h-3 rounded-full bg-[#6DB33F]/80" />
-            <span className="ml-3 text-[11px] text-[#A69E8F] font-mono flex items-center gap-1.5">
-              <Terminal className="w-3.5 h-3.5 text-[#D4AF37]" />
-              {activeTab === "ecosystem"
-                ? "spring-ecosystem-hierarchy.ascii"
-                : activeTab === "folder-structure"
-                ? "spring-boot-project-structure.tree"
-                : "spring-mvc-architecture-flow.diagram"}
-            </span>
+            <button
+              onClick={() => handleCopy("ecosystem", ecosystemContent)}
+              className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#14120B] border border-[#D4AF37]/20 text-[11px] text-[#A69E8F] hover:text-white hover:border-[#D4AF37]/60 transition-all cursor-pointer"
+            >
+              {copiedSection === "ecosystem" ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-[#6DB33F]" />
+                  <span className="text-[#6DB33F]">Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-3.5 h-3.5" />
+                  <span>Copy ASCII</span>
+                </>
+              )}
+            </button>
           </div>
 
-          <button
-            onClick={() => handleCopy(getCopyText())}
-            className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#14120B] border border-[#D4AF37]/20 text-[11px] text-[#A69E8F] hover:text-white hover:border-[#D4AF37]/60 transition-all cursor-pointer"
-          >
-            {copied ? (
-              <>
-                <Check className="w-3.5 h-3.5 text-[#6DB33F]" />
-                <span className="text-[#6DB33F]">Copied!</span>
-              </>
-            ) : (
-              <>
-                <Copy className="w-3.5 h-3.5" />
-                <span>Copy Architecture ASCII</span>
-              </>
-            )}
-          </button>
-        </div>
-
-        {/* Terminal Content Body */}
-        <div className="p-6 overflow-x-auto text-[#F4F1EA] leading-relaxed selection:bg-[#D4AF37]/30">
-          {activeTab === "ecosystem" && (
+          <div className="p-6 overflow-x-auto text-[#F4F1EA] leading-relaxed selection:bg-[#D4AF37]/30">
             <pre className="font-mono text-xs sm:text-sm text-[#F4F1EA]">
               <code>
                 {ecosystemContent.split("\n").map((line, i) => {
@@ -234,9 +181,64 @@ export function EcosystemGrid() {
                 })}
               </code>
             </pre>
-          )}
+          </div>
 
-          {activeTab === "folder-structure" && (
+          <div className="px-5 py-2.5 bg-[#17150F] border-t border-[#D4AF37]/15 flex items-center justify-between text-[11px] text-[#A69E8F] font-mono">
+            <span>Spring Framework 6.x & Spring Boot 3.3.x</span>
+            <span className="text-[#D4AF37]">Part I</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────── PART 2: FOLDER STRUCTURE ─────────────────── */}
+      <section id="folder-structure" className="w-full scroll-mt-24 pt-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-[#D4AF37]/20 gap-4">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-mono text-[#D4AF37] uppercase tracking-widest">
+              <span>VOLUME I · PART II</span>
+              <span>—</span>
+              <span>DIRECTORY ANATOMY</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#F4F1EA] mt-1 tracking-tight">
+              Folder <span className="gold-gradient-text">Structure Blueprint</span>
+            </h2>
+          </div>
+          <p className="text-xs text-[#A69E8F] max-w-md font-sans leading-relaxed">
+            Standard production layout for Maven & Spring Boot applications isolating source packages, static assets, configs, and build targets.
+          </p>
+        </div>
+
+        <div className="w-full rounded-2xl bg-[#14120B] border border-[#D4AF37]/30 shadow-[0_20px_60px_rgba(0,0,0,0.9)] overflow-hidden font-mono text-xs">
+          <div className="px-5 py-3.5 bg-[#1C1A12] border-b border-[#D4AF37]/20 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-[#E76F51]/80" />
+              <div className="w-3 h-3 rounded-full bg-[#D4AF37]/80" />
+              <div className="w-3 h-3 rounded-full bg-[#6DB33F]/80" />
+              <span className="ml-3 text-[11px] text-[#A69E8F] font-mono flex items-center gap-1.5">
+                <FolderTree className="w-3.5 h-3.5 text-[#D4AF37]" />
+                spring-boot-project-structure.tree
+              </span>
+            </div>
+
+            <button
+              onClick={() => handleCopy("folder", folderContent)}
+              className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#14120B] border border-[#D4AF37]/20 text-[11px] text-[#A69E8F] hover:text-white hover:border-[#D4AF37]/60 transition-all cursor-pointer"
+            >
+              {copiedSection === "folder" ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-[#6DB33F]" />
+                  <span className="text-[#6DB33F]">Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-3.5 h-3.5" />
+                  <span>Copy Tree</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          <div className="p-6 overflow-x-auto text-[#F4F1EA] leading-relaxed selection:bg-[#D4AF37]/30">
             <pre className="font-mono text-xs sm:text-sm text-[#F4F1EA]">
               <code>
                 {folderContent.split("\n").map((line, i) => {
@@ -244,9 +246,7 @@ export function EcosystemGrid() {
                     const hashIndex = line.indexOf("#");
                     const pathPart = line.substring(0, hashIndex);
                     const commentPart = line.substring(hashIndex);
-                    
                     const isKeyFile = pathPart.includes("StoreApplication.java") || pathPart.includes("pom.xml") || pathPart.includes("application.properties");
-                    
                     return (
                       <div key={i} className="py-0.5 flex flex-wrap">
                         <span className={isKeyFile ? "text-[#D4AF37] font-bold" : "text-[#F4F1EA]"}>
@@ -262,9 +262,65 @@ export function EcosystemGrid() {
                 })}
               </code>
             </pre>
-          )}
+          </div>
 
-          {activeTab === "mvc" && (
+          <div className="px-5 py-2.5 bg-[#17150F] border-t border-[#D4AF37]/15 flex items-center justify-between text-[11px] text-[#A69E8F] font-mono">
+            <span>Maven & Gradle Packaging Standards</span>
+            <span className="text-[#D4AF37]">Part II</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────── PART 3: SPRING MVC MECHANICS ─────────────────── */}
+      <section id="mvc" className="w-full scroll-mt-24 pt-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-[#D4AF37]/20 gap-4">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-mono text-[#E76F51] uppercase tracking-widest">
+              <span>VOLUME I · PART III</span>
+              <span>—</span>
+              <span>REQUEST LIFECYCLE</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#F4F1EA] mt-1 tracking-tight">
+              Spring Web MVC <span className="java-gradient-text">Mechanics</span>
+            </h2>
+          </div>
+          <p className="text-xs text-[#A69E8F] max-w-md font-sans leading-relaxed">
+            Internal request dispatching via DispatcherServlet, HandlerMapping, and Jackson HttpMessageConverters.
+          </p>
+        </div>
+
+        {/* Terminal Diagram */}
+        <div className="w-full rounded-2xl bg-[#14120B] border border-[#D4AF37]/30 shadow-[0_20px_60px_rgba(0,0,0,0.9)] overflow-hidden font-mono text-xs mb-10">
+          <div className="px-5 py-3.5 bg-[#1C1A12] border-b border-[#D4AF37]/20 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-[#E76F51]/80" />
+              <div className="w-3 h-3 rounded-full bg-[#D4AF37]/80" />
+              <div className="w-3 h-3 rounded-full bg-[#6DB33F]/80" />
+              <span className="ml-3 text-[11px] text-[#A69E8F] font-mono flex items-center gap-1.5">
+                <Cpu className="w-3.5 h-3.5 text-[#E76F51]" />
+                spring-mvc-architecture-flow.diagram
+              </span>
+            </div>
+
+            <button
+              onClick={() => handleCopy("mvc", mvcContent)}
+              className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#14120B] border border-[#D4AF37]/20 text-[11px] text-[#A69E8F] hover:text-white hover:border-[#D4AF37]/60 transition-all cursor-pointer"
+            >
+              {copiedSection === "mvc" ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-[#6DB33F]" />
+                  <span className="text-[#6DB33F]">Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-3.5 h-3.5" />
+                  <span>Copy Diagram</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          <div className="p-6 overflow-x-auto text-[#F4F1EA] leading-relaxed selection:bg-[#D4AF37]/30">
             <pre className="font-mono text-xs sm:text-sm text-[#F4F1EA]">
               <code>
                 {mvcContent.split("\n").map((line, i) => {
@@ -281,85 +337,72 @@ export function EcosystemGrid() {
                 })}
               </code>
             </pre>
-          )}
-        </div>
-
-        {/* Footer info bar */}
-        <div className="px-5 py-2.5 bg-[#17150F] border-t border-[#D4AF37]/15 flex items-center justify-between text-[11px] text-[#A69E8F] font-mono">
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5">
-              <FileCode2 className="w-3.5 h-3.5 text-[#6DB33F]" />
-              Spring Boot 3.3.x / Web MVC
-            </span>
-            <span className="hidden sm:inline text-[#D4AF37]/50">|</span>
-            <span className="hidden sm:inline">DispatcherServlet & Request Lifecycle</span>
           </div>
-          <span className="text-[#D4AF37]">Primavera Volume I</span>
-        </div>
-      </div>
 
-      {/* Spring MVC Deep-Dive Educational Grid */}
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        {/* Model Card */}
-        <div className="p-6 rounded-2xl bg-[#1C1A12] border border-[#D4AF37]/20 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-mono text-[#D4AF37] tracking-widest uppercase">PILLAR I</span>
-              <span className="text-[10px] px-2 py-0.5 rounded bg-[#14120B] border border-[#D4AF37]/30 text-[#D4AF37] font-mono">Model (M)</span>
+          <div className="px-5 py-2.5 bg-[#17150F] border-t border-[#D4AF37]/15 flex items-center justify-between text-[11px] text-[#A69E8F] font-mono">
+            <span>DispatcherServlet & HttpMessageConverters</span>
+            <span className="text-[#E76F51]">Part III</span>
+          </div>
+        </div>
+
+        {/* 3 Pillars Deep Dive Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-6 rounded-2xl bg-[#1C1A12] border border-[#D4AF37]/20 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xs font-mono text-[#D4AF37] tracking-widest uppercase">PILLAR I</span>
+                <span className="text-[10px] px-2 py-0.5 rounded bg-[#14120B] border border-[#D4AF37]/30 text-[#D4AF37] font-mono">Model (M)</span>
+              </div>
+              <h3 className="text-lg font-bold text-[#F4F1EA] mb-2">Data & State Representation</h3>
+              <p className="text-xs text-[#A69E8F] leading-relaxed mb-4">
+                Holds application state, database entities (<code className="text-[#D4AF37] font-mono">@Entity</code>), and immutable Data Transfer Objects (<code className="text-[#D4AF37] font-mono">Java Records</code>).
+              </p>
             </div>
-            <h3 className="text-lg font-bold text-[#F4F1EA] mb-2">Data & State Representation</h3>
-            <p className="text-xs text-[#A69E8F] leading-relaxed mb-4">
-              Holds application state, database entities (<code className="text-[#D4AF37] font-mono">@Entity</code>), and immutable Data Transfer Objects (<code className="text-[#D4AF37] font-mono">Java Records</code>). Completely detached from HTTP presentation logic.
-            </p>
-          </div>
-          <div className="p-3 rounded-xl bg-[#14120B] border border-[#D4AF37]/15 font-mono text-[11px] text-[#F4F1EA]">
-            <span className="text-[#E76F51]">public record</span> ProductDTO(<br />
-            &nbsp;&nbsp;Long id, String name, BigDecimal price<br />
-            ) {}
-          </div>
-        </div>
-
-        {/* View Card */}
-        <div className="p-6 rounded-2xl bg-[#1C1A12] border border-[#D4AF37]/20 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-mono text-[#6DB33F] tracking-widest uppercase">PILLAR II</span>
-              <span className="text-[10px] px-2 py-0.5 rounded bg-[#14120B] border border-[#6DB33F]/30 text-[#6DB33F] font-mono">View (V)</span>
+            <div className="p-3 rounded-xl bg-[#14120B] border border-[#D4AF37]/15 font-mono text-[11px] text-[#F4F1EA]">
+              <span className="text-[#E76F51]">public record</span> ProductDTO(<br />
+              &nbsp;&nbsp;Long id, String name, BigDecimal price<br />
+              ) {}
             </div>
-            <h3 className="text-lg font-bold text-[#F4F1EA] mb-2">Presentation Serialization</h3>
-            <p className="text-xs text-[#A69E8F] leading-relaxed mb-4">
-              Renders the Model for the consumer. In REST APIs, Spring uses <code className="text-[#6DB33F] font-mono">Jackson2HttpMessageConverter</code> to automatically serialize Java objects into JSON payloads.
-            </p>
           </div>
-          <div className="p-3 rounded-xl bg-[#14120B] border border-[#6DB33F]/15 font-mono text-[11px] text-[#6DB33F]">
-            &#123;<br />
-            &nbsp;&nbsp;&quot;id&quot;: 42,<br />
-            &nbsp;&nbsp;&quot;name&quot;: &quot;Spring Boot Guide&quot;<br />
-            &#125;
-          </div>
-        </div>
 
-        {/* Controller Card */}
-        <div className="p-6 rounded-2xl bg-[#1C1A12] border border-[#D4AF37]/20 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-mono text-[#E76F51] tracking-widest uppercase">PILLAR III</span>
-              <span className="text-[10px] px-2 py-0.5 rounded bg-[#14120B] border border-[#E76F51]/30 text-[#E76F51] font-mono">Controller (C)</span>
+          <div className="p-6 rounded-2xl bg-[#1C1A12] border border-[#D4AF37]/20 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xs font-mono text-[#6DB33F] tracking-widest uppercase">PILLAR II</span>
+                <span className="text-[10px] px-2 py-0.5 rounded bg-[#14120B] border border-[#6DB33F]/30 text-[#6DB33F] font-mono">View (V)</span>
+              </div>
+              <h3 className="text-lg font-bold text-[#F4F1EA] mb-2">Presentation Serialization</h3>
+              <p className="text-xs text-[#A69E8F] leading-relaxed mb-4">
+                Renders Model for consumer. In REST APIs, Spring uses <code className="text-[#6DB33F] font-mono">Jackson2HttpMessageConverter</code> to convert objects to JSON.
+              </p>
             </div>
-            <h3 className="text-lg font-bold text-[#F4F1EA] mb-2">Request Routing & Orchestration</h3>
-            <p className="text-xs text-[#A69E8F] leading-relaxed mb-4">
-              Intercepts incoming HTTP requests via <code className="text-[#E76F51] font-mono">@RestController</code>, validates payloads with <code className="text-[#E76F51] font-mono">@Valid</code>, and delegates business execution to the Service layer.
-            </p>
+            <div className="p-3 rounded-xl bg-[#14120B] border border-[#6DB33F]/15 font-mono text-[11px] text-[#6DB33F]">
+              &#123;<br />
+              &nbsp;&nbsp;&quot;id&quot;: 42,<br />
+              &nbsp;&nbsp;&quot;name&quot;: &quot;Spring Boot Guide&quot;<br />
+              &#125;
+            </div>
           </div>
-          <div className="p-3 rounded-xl bg-[#14120B] border border-[#E76F51]/15 font-mono text-[11px] text-[#F4F1EA]">
-            <span className="text-[#E76F51]">@GetMapping</span>(<span className="text-[#6DB33F]">&quot;/products/&#123;id&#125;&quot;</span>)<br />
-            <span className="text-[#D4AF37]">public</span> ProductDTO getProduct(...)
+
+          <div className="p-6 rounded-2xl bg-[#1C1A12] border border-[#D4AF37]/20 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xs font-mono text-[#E76F51] tracking-widest uppercase">PILLAR III</span>
+                <span className="text-[10px] px-2 py-0.5 rounded bg-[#14120B] border border-[#E76F51]/30 text-[#E76F51] font-mono">Controller (C)</span>
+              </div>
+              <h3 className="text-lg font-bold text-[#F4F1EA] mb-2">Routing & Orchestration</h3>
+              <p className="text-xs text-[#A69E8F] leading-relaxed mb-4">
+                Intercepts HTTP requests via <code className="text-[#E76F51] font-mono">@RestController</code>, validates payloads with <code className="text-[#E76F51] font-mono">@Valid</code>, & delegates to Service layer.
+              </p>
+            </div>
+            <div className="p-3 rounded-xl bg-[#14120B] border border-[#E76F51]/15 font-mono text-[11px] text-[#F4F1EA]">
+              <span className="text-[#E76F51]">@GetMapping</span>(<span className="text-[#6DB33F]">&quot;/products/&#123;id&#125;&quot;</span>)<br />
+              <span className="text-[#D4AF37]">public</span> ProductDTO getProduct(...)
+            </div>
           </div>
         </div>
+      </section>
 
-      </div>
-
-    </section>
+    </div>
   );
 }

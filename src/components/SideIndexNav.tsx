@@ -9,16 +9,13 @@ interface IndexItem {
 }
 
 const INDEX_ITEMS: IndexItem[] = [
-  { roman: "I",    label: "Core",           sectionId: "core" },
-  { roman: "II",   label: "Security",       sectionId: "security" },
-  { roman: "III",  label: "Cloud",          sectionId: "cloud" },
-  { roman: "IV",   label: "Data",           sectionId: "data" },
-  { roman: "V",    label: "Reactive",       sectionId: "reactive" },
-  { roman: "VI",   label: "Spring AI",      sectionId: "spring-ai" },
-  { roman: "VII",  label: "Virtual Threads",sectionId: "virtual-threads" },
-  { roman: "VIII", label: "JVM",            sectionId: "jvm" },
-  { roman: "IX",   label: "Architecture",   sectionId: "java-features" },
-  { roman: "X",    label: "Developer",      sectionId: "architecture" },
+  { roman: "I",    label: "Ecosystem",       sectionId: "core" },
+  { roman: "II",   label: "Folder Structure",sectionId: "folder-structure" },
+  { roman: "III",  label: "Spring MVC",      sectionId: "mvc" },
+  { roman: "IV",   label: "Virtual Threads", sectionId: "virtual-threads" },
+  { roman: "V",    label: "JVM Mechanics",   sectionId: "jvm" },
+  { roman: "VI",   label: "Pattern Matching",sectionId: "pattern-matching" },
+  { roman: "VII",  label: "Sealed Classes",  sectionId: "sealed-classes" },
 ];
 
 export function SideIndexNav() {
@@ -51,7 +48,7 @@ export function SideIndexNav() {
 
   // Desktop only — mobile navigation is fully handled by the Navigation drawer
   return (
-    <aside className="hidden lg:flex flex-col fixed left-6 xl:left-10 top-32 z-30 w-44 pointer-events-auto select-none">
+    <aside className="hidden lg:flex flex-col fixed left-6 xl:left-10 top-32 z-30 w-48 pointer-events-auto select-none">
       <div className="flex flex-col space-y-2 font-sans">
         {INDEX_ITEMS.map((item) => {
           const isActive = activeId === item.sectionId;

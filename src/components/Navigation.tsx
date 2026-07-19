@@ -30,28 +30,23 @@ interface SearchTopic {
 }
 
 const KNOWLEDGE_TOPICS: SearchTopic[] = [
-  { title: "Spring Boot 3.3 & Core Framework", category: "Spring", sectionId: "core", url: "/#core", description: "Auto-configuration, GraalVM native images, AOT compilation, and Actuator telemetry." },
-  { title: "Spring Security 6.3 & OAuth2", category: "Spring", sectionId: "security", url: "/#security", description: "Authorization filters, Passkeys, OAuth2 Resource Server, and JWT validation." },
-  { title: "Spring Cloud Native & Gateway", category: "Spring", sectionId: "cloud", url: "/#cloud", description: "Resilience4j circuit breakers, Gateway routing, OpenFeign, and Micrometer tracing." },
-  { title: "Spring Data JPA & R2DBC", category: "Spring", sectionId: "data", url: "/#data", description: "Hibernate 6, non-blocking R2DBC reactive storage, and Redis caching." },
-  { title: "Reactive WebFlux & Project Reactor", category: "Spring", sectionId: "reactive", url: "/#reactive", description: "Non-blocking event-loop architecture on Netty with Mono and Flux publishers." },
-  { title: "Spring AI & LLM Integrations", category: "Spring", sectionId: "spring-ai", url: "/#spring-ai", description: "Vector database embeddings, RAG workflows, Ollama, OpenAI, and Function calling." },
+  { title: "Spring Ecosystem Topology", category: "Spring", sectionId: "core", url: "/#core", description: "Complete Spring Framework & Spring Boot module hierarchy." },
+  { title: "Spring Boot Directory Anatomy", category: "Spring", sectionId: "folder-structure", url: "/#folder-structure", description: "Maven & Spring Boot project folder layout standards." },
+  { title: "Spring Web MVC Mechanics", category: "Spring", sectionId: "mvc", url: "/#mvc", description: "DispatcherServlet, HandlerMapping, & HttpMessageConverters." },
   { title: "Virtual Threads (Project Loom)", category: "Java", sectionId: "virtual-threads", url: "/#virtual-threads", description: "Million-thread lightweight JVM concurrency without callback hell." },
-  { title: "Pattern Matching & Record Patterns", category: "Java", sectionId: "pattern-matching", url: "/#virtual-threads", description: "Deconstructing records in switch expressions with guards." },
-  { title: "Sealed Classes & Exhaustive Switches", category: "Java", sectionId: "sealed-classes", url: "/#virtual-threads", description: "Domain modeling with restricted subclass permits." },
-  { title: "Generational ZGC & Low-Latency JVM", category: "Java", sectionId: "jvm", url: "/#virtual-threads", description: "Sub-millisecond pause time garbage collection for terabyte heaps." },
+  { title: "Generational ZGC & Low-Latency JVM", category: "Java", sectionId: "jvm", url: "/#jvm", description: "Sub-millisecond pause time garbage collection for terabyte heaps." },
+  { title: "Pattern Matching & Record Patterns", category: "Java", sectionId: "pattern-matching", url: "/#pattern-matching", description: "Deconstructing records in switch expressions with guards." },
+  { title: "Sealed Classes & Exhaustive Switches", category: "Java", sectionId: "sealed-classes", url: "/#sealed-classes", description: "Domain modeling with restricted subclass permits." },
 ];
 
 const SECTION_ITEMS = [
-  { roman: "I",    label: "Core",           id: "core" },
-  { roman: "II",   label: "Security",       id: "security" },
-  { roman: "III",  label: "Cloud",          id: "cloud" },
-  { roman: "IV",   label: "Data",           id: "data" },
-  { roman: "V",    label: "Reactive",       id: "reactive" },
-  { roman: "VI",   label: "Spring AI",      id: "spring-ai" },
-  { roman: "VII",  label: "Virtual Threads",id: "virtual-threads" },
-  { roman: "VIII", label: "JVM",            id: "jvm" },
-  { roman: "IX",   label: "Architecture",   id: "java-features" },
+  { roman: "I",    label: "Ecosystem",       id: "core" },
+  { roman: "II",   label: "Folder Structure",id: "folder-structure" },
+  { roman: "III",  label: "Spring MVC",      id: "mvc" },
+  { roman: "IV",   label: "Virtual Threads", id: "virtual-threads" },
+  { roman: "V",    label: "JVM Mechanics",   id: "jvm" },
+  { roman: "VI",   label: "Pattern Matching",id: "pattern-matching" },
+  { roman: "VII",  label: "Sealed Classes",  id: "sealed-classes" },
 ];
 
 export function Navigation() {
