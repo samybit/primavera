@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 
 export function HeroSection() {
   return (
@@ -17,14 +17,13 @@ export function HeroSection() {
           quality={100}
           className="object-cover object-center brightness-[0.92] contrast-[1.05]"
         />
-        {/* Subtle bottom gradient to blend into main dark background */}
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#14120B] to-transparent z-10" />
       </div>
 
       {/* Hero Content Container */}
       <div className="relative z-10 w-full flex-1 flex flex-col justify-between pt-16 sm:pt-24 pb-16 px-6 sm:px-12 pr-6 sm:pr-16 max-w-[1400px]">
         
-        {/* Main Title - Single Big Word Across Top */}
+        {/* Main Title */}
         <div>
           <h1 className="text-7xl sm:text-9xl lg:text-[140px] xl:text-[160px] font-bold tracking-tight text-white leading-none drop-shadow-[0_8px_24px_rgba(0,0,0,0.7)] select-none">
             Spring
@@ -37,7 +36,7 @@ export function HeroSection() {
             Modern enterprise tools designed for building resilient cloud architecture and getting that scale.
           </p>
 
-          {/* Action CTAs */}
+          {/* Action CTAs pointing to official starter docs */}
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <Link
               href="#core"
@@ -47,12 +46,15 @@ export function HeroSection() {
               <ArrowRight className="w-4 h-4" />
             </Link>
 
-            <Link
-              href="/java"
-              className="px-6 py-3 rounded-full bg-black/40 border border-white/30 backdrop-blur-md text-white text-xs font-semibold hover:bg-black/60 transition-all"
+            <a
+              href="https://dev.java/learn/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 rounded-full bg-black/40 border border-white/30 backdrop-blur-md text-white text-xs font-semibold hover:bg-black/60 transition-all flex items-center gap-2"
             >
-              Java 21+ Knowledge Hub
-            </Link>
+              <span>Official Java Starter Docs</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
           </div>
         </div>
 

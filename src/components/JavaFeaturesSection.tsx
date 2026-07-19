@@ -1,6 +1,5 @@
 import React from "react";
-import Link from "next/link";
-import { Cpu, ArrowUpRight, Terminal } from "lucide-react";
+import { Cpu, ExternalLink, Terminal } from "lucide-react";
 
 interface JavaFeature {
   id: string;
@@ -80,13 +79,15 @@ export function JavaFeaturesSection() {
             Modern <span className="java-gradient-text">Java 21+ Platform</span>
           </h2>
         </div>
-        <Link
-          href="/java"
+        <a
+          href="https://dev.java/learn/"
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center gap-2 text-xs font-semibold text-[#E76F51] hover:text-[#FFF] transition-colors mt-4 md:mt-0"
         >
-          <span>Open Full Java 21+ Portal</span>
-          <ArrowUpRight className="w-4 h-4" />
-        </Link>
+          <span>Official Java 21+ Documentation</span>
+          <ExternalLink className="w-4 h-4" />
+        </a>
       </div>
 
       {/* Grid */}

@@ -77,28 +77,28 @@ const KNOWLEDGE_TOPICS: SearchTopic[] = [
     title: "Virtual Threads (Project Loom)",
     category: "Java",
     sectionId: "virtual-threads",
-    url: "/java#virtual-threads",
+    url: "/#virtual-threads",
     description: "Million-thread lightweight JVM concurrency without callback hell.",
   },
   {
     title: "Pattern Matching & Record Patterns",
     category: "Java",
     sectionId: "pattern-matching",
-    url: "/java#pattern-matching",
+    url: "/#virtual-threads",
     description: "Deconstructing records in switch expressions with guards.",
   },
   {
     title: "Sealed Classes & Exhaustive Switches",
     category: "Java",
     sectionId: "sealed-classes",
-    url: "/java#sealed-classes",
+    url: "/#virtual-threads",
     description: "Domain modeling with restricted subclass permits.",
   },
   {
     title: "Generational ZGC & Low-Latency JVM",
     category: "Java",
     sectionId: "jvm",
-    url: "/java#jvm",
+    url: "/#virtual-threads",
     description: "Sub-millisecond pause time garbage collection for terabyte heaps.",
   },
 ];
@@ -137,10 +137,10 @@ export function Navigation() {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
     document.addEventListener("keydown", handleKeyDown);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
@@ -164,7 +164,7 @@ export function Navigation() {
     setSearchExpanded(false);
     setSearchQuery("");
 
-    if (pathname === "/" && topic.sectionId && topic.url.startsWith("/#")) {
+    if (topic.sectionId && topic.url.startsWith("/#")) {
       const element = document.getElementById(topic.sectionId);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
@@ -178,37 +178,38 @@ export function Navigation() {
     <header className="absolute top-0 left-0 w-full z-40 bg-transparent text-white py-6 px-6 sm:px-12 pointer-events-auto">
       <div className="max-w-[1600px] mx-auto flex items-center justify-between relative">
         
-        {/* Left: Brand Title changed to "Primavera" */}
+        {/* Left: Brand Title */}
         <Link href="/" className="group flex items-center gap-2 shrink-0">
           <span className="text-xs font-semibold tracking-widest uppercase text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
             Primavera
           </span>
         </Link>
 
-        {/* Right: Text-Only Links with Morphing Search & Clean Contact Dangle */}
+        {/* Right: Navbar Links to Official Docs */}
         <div className="hidden md:flex items-center gap-6 text-xs font-medium tracking-wide relative">
           
-          <Link
-            href="/java"
-            className={`transition-colors drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] whitespace-nowrap ${
-              pathname === "/java" ? "text-white font-bold underline underline-offset-4" : "text-white/80 hover:text-white"
-            }`}
-          >
-            Java 21+
-          </Link>
-          
+          {/* Java official starter docs */}
           <a
-            href="https://spring.io"
+            href="https://dev.java/learn/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white/80 hover:text-white transition-colors drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] whitespace-nowrap"
           >
-            Spring.io
+            Java Docs ↗
+          </a>
+          
+          {/* Spring official starter docs */}
+          <a
+            href="https://spring.io/quickstart"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white/80 hover:text-white transition-colors drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] whitespace-nowrap"
+          >
+            Spring.io ↗
           </a>
 
-          {/* Morphing Expanding Search — always mounted, CSS transition only */}
+          {/* Morphing Expanding Search */}
           <div ref={searchRef} className="relative flex items-center">
-            {/* Ghost trigger text — fades out when expanded */}
             <button
               onClick={() => setSearchExpanded(true)}
               aria-label="Open search"
@@ -224,7 +225,6 @@ export function Navigation() {
               <span>Search</span>
             </button>
 
-            {/* Expanded pill — morphs in via max-width & opacity */}
             <div
               style={{
                 maxWidth: searchExpanded ? "24rem" : "0px",
@@ -312,15 +312,12 @@ export function Navigation() {
               <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${contactOpen ? "rotate-180 text-[#D4AF37]" : ""}`} />
             </button>
 
-            {/* Dangled Contact Card - Clean Headerless Layout */}
+            {/* Dangled Contact Card */}
             {contactOpen && (
               <div className="absolute right-0 top-10 w-72 bg-[#1C1A12] border border-[#D4AF37]/40 rounded-2xl p-4 shadow-[0_20px_50px_rgba(0,0,0,0.9),0_0_30px_rgba(212,175,55,0.15)] z-50 animate-dangle font-sans">
-                {/* Dangle Card Top Triangle Pin */}
                 <div className="absolute -top-2 right-5 w-4 h-4 bg-[#1C1A12] border-l border-t border-[#D4AF37]/40 rotate-45" />
 
-                {/* Contact Links */}
                 <div className="space-y-2.5 pt-1">
-                  {/* Email */}
                   <a
                     href="mailto:samyb.samir@gmail.com"
                     className="flex items-center justify-between p-2.5 rounded-xl bg-[#14120B] border border-[#D4AF37]/20 hover:border-[#D4AF37] text-xs text-[#F4F1EA] hover:text-[#D4AF37] transition-all group"
@@ -332,7 +329,6 @@ export function Navigation() {
                     <ExternalLink className="w-3.5 h-3.5 opacity-50 group-hover:opacity-100 transition-opacity" />
                   </a>
 
-                  {/* LinkedIn */}
                   <a
                     href="https://www.linkedin.com/in/samy-barsoum/"
                     target="_blank"
@@ -346,7 +342,6 @@ export function Navigation() {
                     <ExternalLink className="w-3.5 h-3.5 opacity-50 group-hover:opacity-100 transition-opacity" />
                   </a>
 
-                  {/* GitHub */}
                   <a
                     href="https://github.com/samybit"
                     target="_blank"
@@ -361,7 +356,6 @@ export function Navigation() {
                   </a>
                 </div>
 
-                {/* Subtext changed to "SaaS Developer" */}
                 <div className="mt-3 pt-2 text-[10px] text-[#A69E8F] font-serif-italic text-center border-t border-[#D4AF37]/10">
                   SaaS Developer
                 </div>
@@ -386,20 +380,22 @@ export function Navigation() {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden mt-4 border-b border-white/10 bg-[#14120B]/95 p-4 rounded-xl space-y-3 backdrop-blur-md">
-          <Link
-            href="/"
-            onClick={() => setMobileMenuOpen(false)}
+          <a
+            href="https://spring.io/quickstart"
+            target="_blank"
+            rel="noopener noreferrer"
             className="block text-sm font-semibold text-white py-1"
           >
-            Spring Ecosystem
-          </Link>
-          <Link
-            href="/java"
-            onClick={() => setMobileMenuOpen(false)}
+            Spring.io Docs ↗
+          </a>
+          <a
+            href="https://dev.java/learn/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="block text-sm font-semibold text-white/80 py-1"
           >
-            Java 21+ Knowledge
-          </Link>
+            Java Starter Docs ↗
+          </a>
           <button
             onClick={() => {
               setContactOpen(!contactOpen);

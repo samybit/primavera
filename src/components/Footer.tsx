@@ -21,12 +21,11 @@ export function Footer() {
           </p>
         </div>
 
-        {/* Links */}
+        {/* Links to Official Starter Docs */}
         <div className="flex items-center gap-6 text-xs">
-          <Link href="/" className="hover:text-[#D4AF37] transition-colors">Spring Ecosystem</Link>
-          <Link href="/java" className="hover:text-[#E76F51] transition-colors">Java 21+ Hub</Link>
-          <Link href="#architecture" className="hover:text-[#6DB33F] transition-colors">Architecture</Link>
-          <a href="https://spring.io" target="_blank" rel="noopener noreferrer" className="hover:text-[#D4AF37] transition-colors">Spring.io ↗</a>
+          <Link href="#core" className="hover:text-[#D4AF37] transition-colors">Spring Ecosystem</Link>
+          <a href="https://spring.io/quickstart" target="_blank" rel="noopener noreferrer" className="hover:text-[#6DB33F] transition-colors">Spring Quickstart ↗</a>
+          <a href="https://dev.java/learn/" target="_blank" rel="noopener noreferrer" className="hover:text-[#E76F51] transition-colors">Java Starter Docs ↗</a>
         </div>
 
         {/* Copyright */}
