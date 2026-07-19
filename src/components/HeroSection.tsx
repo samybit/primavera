@@ -5,9 +5,9 @@ import { ArrowRight, ExternalLink } from "lucide-react";
 
 export function HeroSection() {
   return (
-    <section className="relative w-full min-h-screen flex flex-col justify-between overflow-hidden">
-      
-      {/* Full Screen High-Res Background Painting */}
+    <section className="relative w-full min-h-[100svh] flex flex-col overflow-hidden">
+
+      {/* Full Screen Background Painting */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/renaissance_hero.jpg"
@@ -15,45 +15,45 @@ export function HeroSection() {
           fill
           priority
           quality={100}
-          className="object-cover object-center brightness-[0.92] contrast-[1.05]"
+          className="object-cover object-center brightness-[0.88] contrast-[1.05]"
         />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#14120B] to-transparent z-10" />
+        {/* Bottom gradient to blend into content below */}
+        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#14120B] to-transparent z-10" />
+        {/* Very subtle top vignette so navbar text stays readable */}
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/30 to-transparent z-10" />
       </div>
 
-      {/* Hero Content Container */}
-      <div className="relative z-10 w-full flex-1 flex flex-col justify-between pt-16 sm:pt-24 pb-16 px-6 sm:px-12 pr-6 sm:pr-16 max-w-[1400px]">
-        
-        {/* Main Title */}
-        <div>
-          <h1 className="text-7xl sm:text-9xl lg:text-[140px] xl:text-[160px] font-bold tracking-tight text-white leading-none drop-shadow-[0_8px_24px_rgba(0,0,0,0.7)] select-none">
-            Spring
-          </h1>
-        </div>
+      {/* Content — flex column that distributes title to top and body to bottom */}
+      <div className="relative z-10 flex flex-col justify-between h-full min-h-[100svh] px-5 sm:px-10 lg:px-12 pt-20 sm:pt-24 pb-10 sm:pb-14 max-w-[1400px] w-full">
 
-        {/* Subheadline Paragraph below Title */}
-        <div className="mt-auto pt-32 sm:pt-48 lg:pt-56 max-w-2xl">
-          <p className="text-2xl sm:text-3xl lg:text-4xl font-serif-italic text-white font-normal leading-snug drop-shadow-[0_4px_16px_rgba(0,0,0,0.85)]">
+        {/* Big Title — anchored near top */}
+        <h1 className="text-[clamp(4rem,18vw,10rem)] font-bold tracking-tight text-white leading-none drop-shadow-[0_8px_24px_rgba(0,0,0,0.7)] select-none">
+          Spring
+        </h1>
+
+        {/* Subtitle + CTAs — pushed to bottom */}
+        <div className="mt-auto max-w-xl">
+          <p className="text-lg sm:text-2xl lg:text-3xl font-serif italic text-white font-normal leading-snug drop-shadow-[0_4px_16px_rgba(0,0,0,0.85)]">
             Modern enterprise tools designed for building resilient cloud architecture and getting that scale.
           </p>
 
-          {/* Action CTAs pointing to official starter docs */}
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="mt-6 flex flex-wrap items-center gap-3">
             <Link
               href="#core"
-              className="px-6 py-3 rounded-full bg-white text-[#14120B] text-xs font-bold hover:bg-white/90 transition-all flex items-center gap-2 shadow-[0_4px_20px_rgba(0,0,0,0.4)]"
+              className="px-5 py-2.5 rounded-full bg-white text-[#14120B] text-xs font-bold hover:bg-white/90 transition-all flex items-center gap-2 shadow-[0_4px_20px_rgba(0,0,0,0.4)]"
             >
               <span>Explore Ecosystem</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
 
             <a
               href="https://dev.java/learn/"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 rounded-full bg-black/40 border border-white/30 backdrop-blur-md text-white text-xs font-semibold hover:bg-black/60 transition-all flex items-center gap-2"
+              className="px-5 py-2.5 rounded-full bg-black/40 border border-white/30 backdrop-blur-md text-white text-xs font-semibold hover:bg-black/60 transition-all flex items-center gap-2"
             >
-              <span>Official Java Starter Docs</span>
-              <ExternalLink className="w-3.5 h-3.5" />
+              <span>Java Starter Docs</span>
+              <ExternalLink className="w-3 h-3" />
             </a>
           </div>
         </div>
