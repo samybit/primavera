@@ -21,6 +21,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Primavera | Renaissance Knowledge Base for Spring & Java",
   description: "High-performance enterprise architecture hub covering Spring Ecosystem, Modern Java 21+, JVM Internal Mechanics, and Microservices.",
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
