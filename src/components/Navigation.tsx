@@ -92,7 +92,7 @@ export function Navigation() {
   }, [mobileOpen]);
 
   const filteredTopics = searchQuery.trim() === ""
-    ? KNOWLEDGE_TOPICS.slice(0, 5)
+    ? KNOWLEDGE_TOPICS
     : KNOWLEDGE_TOPICS.filter(t =>
         t.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         t.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -147,6 +147,7 @@ export function Navigation() {
                 className="text-white/80 hover:text-white flex items-center gap-1.5 cursor-pointer whitespace-nowrap drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                 <Search className="w-3.5 h-3.5" /><span>Search</span>
               </button>
+              
               <div style={{ maxWidth: searchExpanded ? "24rem" : "0px", opacity: searchExpanded ? 1 : 0,
                             pointerEvents: searchExpanded ? "auto" : "none", overflow: "hidden",
                             transition: "max-width 0.38s cubic-bezier(0.16,1,0.3,1), opacity 0.22s ease" }}
@@ -162,30 +163,44 @@ export function Navigation() {
                   </button>
                 </div>
               </div>
+
+              {/* Refined Search Results Card */}
               {searchExpanded && (
-                <div className="absolute right-0 top-10 w-80 bg-[#1C1A12] border border-[#D4AF37]/40 rounded-2xl shadow-[0_24px_60px_rgba(0,0,0,0.95)] z-50 animate-dangle font-sans overflow-hidden max-h-80">
-                  <div className="p-4 overflow-y-auto h-full" style={{ scrollbarWidth: "thin", scrollbarColor: "#3D3822 transparent" }}>
-                    <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#D4AF37]/20 text-[10px] text-[#A69E8F] font-mono">
-                      <span>{searchQuery ? `"${searchQuery.toUpperCase()}"` : "QUICK SUGGESTIONS"}</span>
-                      <span>{filteredTopics.length} results</span>
-                    </div>
+                <div className="absolute right-0 top-10 w-96 bg-[#1C1A12] border border-[#D4AF37]/40 rounded-2xl shadow-[0_24px_60px_rgba(0,0,0,0.95)] z-50 animate-dangle font-sans overflow-hidden flex flex-col max-h-[380px]">
+                  {/* Card Header */}
+                  <div className="px-4 py-3 border-b border-[#D4AF37]/20 flex items-center justify-between text-[10px] text-[#A69E8F] font-mono shrink-0 bg-[#17150F]">
+                    <span>{searchQuery ? `SEARCH: "${searchQuery.toUpperCase()}"` : "QUICK SUGGESTIONS"}</span>
+                    <span className="px-2 py-0.5 rounded bg-[#14120B] border border-[#D4AF37]/20 text-[#D4AF37]">
+                      {filteredTopics.length} {filteredTopics.length === 1 ? "TOPIC" : "TOPICS"}
+                    </span>
+                  </div>
+
+                  {/* Scrollable Topics List */}
+                  <div className="p-3 overflow-y-auto flex-1 space-y-1.5 scrollbar-thin" style={{ scrollbarWidth: "thin", scrollbarColor: "#3D3822 transparent" }}>
                     {filteredTopics.length === 0 ? (
-                      <div className="py-6 text-center text-xs text-[#A69E8F]">No topics found for &quot;{searchQuery}&quot;</div>
-                    ) : (
-                      <div className="space-y-2">
-                        {filteredTopics.map((t, i) => (
-                          <button key={i} onClick={() => handleSelectTopic(t)}
-                                  className="w-full text-left p-2.5 rounded-xl bg-[#14120B] border border-[#D4AF37]/15 hover:border-[#D4AF37]/60 hover:bg-[#252218] transition-all group flex flex-col gap-1 cursor-pointer">
-                            <div className="flex items-center justify-between">
-                              <span className="text-xs font-bold text-[#F4F1EA] group-hover:text-[#D4AF37] transition-colors">{t.title}</span>
-                              <span className={`text-[9px] px-2 py-0.5 rounded font-mono border shrink-0 ml-2 ${
-                                t.category === "Spring" ? "bg-[#6DB33F]/15 text-[#6DB33F] border-[#6DB33F]/30" : "bg-[#E76F51]/15 text-[#E76F51] border-[#E76F51]/30"
-                              }`}>{t.category}</span>
-                            </div>
-                            <p className="text-[11px] text-[#A69E8F] line-clamp-1">{t.description}</p>
-                          </button>
-                        ))}
+                      <div className="py-8 text-center text-xs text-[#A69E8F]/80">
+                        No matching topics found for &quot;{searchQuery}&quot;
                       </div>
+                    ) : (
+                      filteredTopics.map((t, i) => (
+                        <button
+                          key={i}
+                          onClick={() => handleSelectTopic(t)}
+                          className="w-full text-left p-2.5 rounded-xl bg-[#14120B] border border-[#D4AF37]/15 hover:border-[#D4AF37]/60 hover:bg-[#252218] transition-all group flex flex-col gap-1 cursor-pointer"
+                        >
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-xs font-bold text-[#F4F1EA] group-hover:text-[#D4AF37] transition-colors leading-tight">
+                              {t.title}
+                            </span>
+                            <span className={`text-[9px] px-2 py-0.5 rounded font-mono border shrink-0 ${
+                              t.category === "Spring" ? "bg-[#6DB33F]/15 text-[#6DB33F] border-[#6DB33F]/30" : "bg-[#E76F51]/15 text-[#E76F51] border-[#E76F51]/30"
+                            }`}>
+                              {t.category}
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-[#A69E8F] line-clamp-1 leading-normal">{t.description}</p>
+                        </button>
+                      ))
                     )}
                   </div>
                 </div>
@@ -231,18 +246,15 @@ export function Navigation() {
       </header>
 
       {/* ─────────────────── MOBILE FULL-SCREEN DRAWER ─────────────────── */}
-      {/* Backdrop */}
       <div
         onClick={() => setMobileOpen(false)}
         className={`md:hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-40 transition-opacity duration-300 ${mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
       />
 
-      {/* Slide-in Panel */}
       <div
         ref={drawerRef}
         className={`md:hidden fixed top-0 right-0 h-full w-[80vw] max-w-sm bg-[#14120B] border-l border-[#D4AF37]/20 z-50 flex flex-col transition-transform duration-300 ease-out ${mobileOpen ? "translate-x-0" : "translate-x-full"}`}
       >
-        {/* Drawer Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-[#D4AF37]/15">
           <span className="text-xs font-semibold tracking-widest uppercase text-[#D4AF37]">Primavera</span>
           <button onClick={() => setMobileOpen(false)} className="p-1.5 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-colors">
@@ -250,10 +262,7 @@ export function Navigation() {
           </button>
         </div>
 
-        {/* Drawer Scrollable Body */}
         <div className="flex-1 overflow-y-auto px-6 py-6 space-y-8">
-
-          {/* Section Index */}
           <div>
             <p className="text-[10px] font-mono text-[#A69E8F] uppercase tracking-widest mb-3">Contents</p>
             <div className="space-y-1">
@@ -267,10 +276,8 @@ export function Navigation() {
             </div>
           </div>
 
-          {/* Divider */}
           <div className="border-t border-[#D4AF37]/10" />
 
-          {/* External Links */}
           <div>
             <p className="text-[10px] font-mono text-[#A69E8F] uppercase tracking-widest mb-3">Resources</p>
             <div className="space-y-2">
@@ -287,10 +294,8 @@ export function Navigation() {
             </div>
           </div>
 
-          {/* Divider */}
           <div className="border-t border-[#D4AF37]/10" />
 
-          {/* Contact */}
           <div>
             <p className="text-[10px] font-mono text-[#A69E8F] uppercase tracking-widest mb-3">Contact</p>
             <div className="space-y-2">
@@ -313,10 +318,8 @@ export function Navigation() {
               </a>
             </div>
           </div>
-
         </div>
 
-        {/* Drawer Footer */}
         <div className="px-6 py-4 border-t border-[#D4AF37]/10">
           <p className="text-[10px] text-[#6E675B] font-serif italic text-center">SaaS Developer · Renaissance Edition</p>
         </div>
