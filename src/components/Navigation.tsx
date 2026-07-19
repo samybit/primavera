@@ -206,49 +206,68 @@ export function Navigation() {
             Spring.io
           </a>
 
-          {/* Morphing Expanding Search Input Container */}
+          {/* Morphing Expanding Search — always mounted, CSS transition only */}
           <div ref={searchRef} className="relative flex items-center">
-            {!searchExpanded ? (
-              <button
-                onClick={() => setSearchExpanded(true)}
-                className="text-white/80 hover:text-white transition-colors drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
-              >
-                <Search className="w-3.5 h-3.5" />
-                <span>Search</span>
-              </button>
-            ) : (
-              <div className="relative flex items-center w-64 sm:w-80 lg:w-96 transition-all duration-300 ease-out animate-dangle">
-                <div className="w-full flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1C1A12] border border-[#D4AF37]/50 shadow-[0_10px_30px_rgba(0,0,0,0.9),0_0_20px_rgba(212,175,55,0.2)]">
-                  <Search className="w-3.5 h-3.5 text-[#D4AF37] shrink-0" />
-                  <input
-                    ref={inputRef}
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search Spring & Java topics..."
-                    className="bg-transparent border-none outline-none text-xs text-[#F4F1EA] placeholder-[#A69E8F]/60 w-full"
-                  />
-                  <button
-                    onClick={() => {
-                      setSearchExpanded(false);
-                      setSearchQuery("");
-                    }}
-                    className="text-[#A69E8F] hover:text-white p-0.5 rounded-full hover:bg-white/10 shrink-0 cursor-pointer"
-                  >
-                    <X className="w-3.5 h-3.5" />
-                  </button>
-                </div>
+            {/* Ghost trigger text — fades out when expanded */}
+            <button
+              onClick={() => setSearchExpanded(true)}
+              aria-label="Open search"
+              style={{
+                opacity: searchExpanded ? 0 : 1,
+                pointerEvents: searchExpanded ? "none" : "auto",
+                position: searchExpanded ? "absolute" : "relative",
+                transition: "opacity 0.2s ease",
+              }}
+              className="text-white/80 hover:text-white flex items-center gap-1.5 cursor-pointer whitespace-nowrap drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+            >
+              <Search className="w-3.5 h-3.5" />
+              <span>Search</span>
+            </button>
 
-                {/* Search Results Dangle Card */}
-                <div className="absolute right-0 top-11 w-full bg-[#1C1A12] border border-[#D4AF37]/40 rounded-2xl p-4 shadow-[0_20px_50px_rgba(0,0,0,0.95)] z-50 animate-dangle font-sans max-h-96 overflow-y-auto">
+            {/* Expanded pill — morphs in via max-width & opacity */}
+            <div
+              style={{
+                maxWidth: searchExpanded ? "24rem" : "0px",
+                opacity: searchExpanded ? 1 : 0,
+                pointerEvents: searchExpanded ? "auto" : "none",
+                overflow: "hidden",
+                transition: "max-width 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease",
+              }}
+              className="flex items-center"
+            >
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1C1A12]/90 border border-[#D4AF37]/50 shadow-[0_6px_24px_rgba(0,0,0,0.8),0_0_16px_rgba(212,175,55,0.2)] w-80">
+                <Search className="w-3.5 h-3.5 text-[#D4AF37] shrink-0" />
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search Spring & Java topics..."
+                  className="bg-transparent border-none outline-none text-xs text-[#F4F1EA] placeholder:text-[#A69E8F]/50 w-full min-w-0"
+                />
+                <button
+                  onClick={() => { setSearchExpanded(false); setSearchQuery(""); }}
+                  className="text-[#A69E8F] hover:text-white rounded-full hover:bg-white/10 shrink-0 cursor-pointer p-0.5"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Search Results dropdown */}
+            {searchExpanded && (
+              <div className="absolute right-0 top-10 w-80 bg-[#1C1A12] border border-[#D4AF37]/40 rounded-2xl shadow-[0_24px_60px_rgba(0,0,0,0.95)] z-50 animate-dangle font-sans overflow-hidden max-h-80">
+                <div
+                  className="p-4 overflow-y-auto h-full"
+                  style={{ scrollbarWidth: "thin", scrollbarColor: "#3D3822 transparent" }}
+                >
                   <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#D4AF37]/20 text-[10px] text-[#A69E8F] font-mono">
-                    <span>{searchQuery ? `RESULTS FOR "${searchQuery.toUpperCase()}"` : "QUICK SUGGESTIONS"}</span>
-                    <span>{filteredTopics.length} TOPICS</span>
+                    <span>{searchQuery ? `"${searchQuery.toUpperCase()}"` : "QUICK SUGGESTIONS"}</span>
+                    <span>{filteredTopics.length} results</span>
                   </div>
-
                   {filteredTopics.length === 0 ? (
                     <div className="py-6 text-center text-xs text-[#A69E8F]">
-                      No matching topics found for &quot;{searchQuery}&quot;
+                      No topics found for &quot;{searchQuery}&quot;
                     </div>
                   ) : (
                     <div className="space-y-2">
@@ -262,7 +281,7 @@ export function Navigation() {
                             <span className="text-xs font-bold text-[#F4F1EA] group-hover:text-[#D4AF37] transition-colors">
                               {topic.title}
                             </span>
-                            <span className={`text-[9px] px-2 py-0.5 rounded font-mono border ${
+                            <span className={`text-[9px] px-2 py-0.5 rounded font-mono border shrink-0 ml-2 ${
                               topic.category === "Spring"
                                 ? "bg-[#6DB33F]/15 text-[#6DB33F] border-[#6DB33F]/30"
                                 : "bg-[#E76F51]/15 text-[#E76F51] border-[#E76F51]/30"
@@ -270,9 +289,7 @@ export function Navigation() {
                               {topic.category}
                             </span>
                           </div>
-                          <p className="text-[11px] text-[#A69E8F] line-clamp-1">
-                            {topic.description}
-                          </p>
+                          <p className="text-[11px] text-[#A69E8F] line-clamp-1">{topic.description}</p>
                         </button>
                       ))}
                     </div>
