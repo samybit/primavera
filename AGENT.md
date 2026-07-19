@@ -15,7 +15,7 @@
 ---
 
 ## 3. Git Commit Message Suggestions
-- **Mandatory After Every Completed Task**: At the end of every turn where tasks or features are completed, provide a clear, conventional git commit message suggestion.
+- **Mandatory After Every Completed Task**: At the end of every turn where tasks or features are completed, provide a clear, conventional commit message suggestion.
 - **Format**:
   ```text
   <type>(<scope>): <short summary>
