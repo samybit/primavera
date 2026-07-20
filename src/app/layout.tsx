@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Newsreader, Plus_Jakarta_Sans, Geist_Mono, Tangerine } from "next/font/google";
+import { Lora, Plus_Jakarta_Sans, JetBrains_Mono, Tangerine } from "next/font/google";
 import "./globals.css";
 
-const newsreader = Newsreader({
+const lora = Lora({
   variable: "--font-serif",
   subsets: ["latin"],
   style: ["normal", "italic"],
@@ -13,7 +13,7 @@ const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
+const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
 });
@@ -37,7 +37,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${jakarta.variable} ${newsreader.variable} ${geistMono.variable} ${tangerine.variable} h-full antialiased dark`}
+      className={`${jakarta.variable} ${lora.variable} ${jetbrainsMono.variable} ${tangerine.variable} h-full antialiased dark`}
     >
       <body className="min-h-full flex flex-col bg-[#14120B] text-[#F4F1EA] selection:bg-[#D4AF37]/30 selection:text-[#FFF]">
         {children}
