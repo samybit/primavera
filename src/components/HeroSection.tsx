@@ -37,7 +37,7 @@ export function HeroSection() {
             <span className="font-tangerine text-3xl sm:text-4xl lg:text-5xl text-[#D4AF37] not-italic font-bold pr-0.5 select-none">
               M
             </span>
-            odern enterprise tools designed for building resilient cloud architecture and getting that scale.
+            y simple learning archive covering the Spring ecosystem and modern Java.
           </p>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
