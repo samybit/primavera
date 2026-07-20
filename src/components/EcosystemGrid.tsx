@@ -221,56 +221,67 @@ export function EcosystemGrid() {
             </button>
           </div>
 
-          <div className="p-6 overflow-x-auto text-[#F4F1EA] leading-relaxed selection:bg-[#D4AF37]/30">
-            <pre className="font-mono text-xs sm:text-sm text-[#F4F1EA]">
-              <code>
-                {ecosystemContent.split("\n").map((line, i) => {
+          <div className="p-6 overflow-x-auto selection:bg-[#D4AF37]/30">
+            <pre className="font-mono text-xs sm:text-sm" style={{ lineHeight: "1.7em" }}>
+              {(() => {
+                // ROW: every single line in the tree uses this same wrapper.
+                // Identical style on every row means the browser gives them all
+                // the exact same height — so │ pipes connect perfectly.
+                const makeRow = (
+                  key: number,
+                  children: React.ReactNode,
+                  onClick?: () => void
+                ) => (
+                  <span
+                    key={key}
+                    style={{ display: "block", lineHeight: "inherit" }}
+                    onClick={onClick}
+                    className={onClick ? "cursor-pointer hover:bg-white/[0.02] transition-colors rounded" : undefined}
+                  >
+                    {children}
+                  </span>
+                );
+
+                return ecosystemContent.split("\n").map((line, i) => {
+                  // Title header
                   if (line.startsWith("[ THE SPRING ECOSYSTEM ]")) {
-                    return <span key={i} className="text-[#D4AF37] font-bold block mb-2">{line}</span>;
+                    return makeRow(i, <span className="text-[#D4AF37] font-bold">{line}</span>);
                   }
-                  
-                  // Group Header (e.g. Spring Boot, Spring Data)
+
+                  // Group Header — clickable
                   if (line.includes("├── Spring ") || line.includes("└── Spring ")) {
                     const parts = line.split("──>");
                     const matchName = parts[0].replace(/^.*?(Spring\s+\w+)/, "$1").trim();
                     currentEcosystemGroup = matchName;
-                    const isGroupCollapsed = collapsedEcosystem[matchName];
-
-                    return (
-                      <div
-                        key={i}
-                        onClick={() => toggleEcosystemGroup(matchName)}
-                        className="py-1 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 border-t border-[#D4AF37]/10 pt-2.5 mt-2 cursor-pointer hover:bg-white/[0.02] transition-colors rounded px-1 -mx-1"
-                      >
-                        <span className="text-[#6DB33F] font-bold whitespace-pre">{parts[0]}</span>
-                        {parts[1] && (
-                          <span className="text-[#D4AF37] text-[11px] sm:text-right italic">
-                            ──&gt;{parts[1]}
-                          </span>
-                        )}
-                      </div>
+                    return makeRow(
+                      i,
+                      <>
+                        <span className="text-[#6DB33F] font-bold">{parts[0]}</span>
+                        {parts[1] && <span className="text-[#D4AF37] italic">──&gt;{parts[1]}</span>}
+                      </>,
+                      () => toggleEcosystemGroup(matchName)
                     );
                   }
 
-                  // Group Child Line
+                  // Child Line with parenthetical comment
                   if (line.includes("(")) {
                     if (currentEcosystemGroup && collapsedEcosystem[currentEcosystemGroup]) {
-                      return null; // Collapsed child line
+                      return null;
                     }
-                    const commentIndex = line.indexOf("(");
-                    const treePart = line.substring(0, commentIndex);
-                    const commentPart = line.substring(commentIndex);
-                    return (
-                      <div key={i} className="py-0.5 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
-                        <span className="text-[#F4F1EA] whitespace-pre">{treePart.trimEnd()}</span>
-                        <span className="text-[#A69E8F]/70 italic text-[11px] pl-4 sm:pl-0 sm:text-right">{commentPart}</span>
-                      </div>
+                    const ci = line.indexOf("(");
+                    return makeRow(
+                      i,
+                      <>
+                        <span className="text-[#F4F1EA]">{line.substring(0, ci)}</span>
+                        <span className="text-[#A69E8F]/70 italic">{line.substring(ci)}</span>
+                      </>
                     );
                   }
 
-                  return <div key={i} className="text-[#A69E8F] whitespace-pre">{line}</div>;
-                })}
-              </code>
+                  // Separator │ lines and everything else
+                  return makeRow(i, <span className="text-[#A69E8F]">{line || " "}</span>);
+                });
+              })()}
             </pre>
           </div>
 
@@ -346,10 +357,9 @@ export function EcosystemGrid() {
                     const rawPath = line.substring(0, hashIndex);
                     const rawComment = line.substring(hashIndex).trim();
 
-                    const isKeyFile =
-                      rawPath.includes("Application.java") ||
-                      rawPath.includes("pom.xml") ||
-                      rawPath.includes("application.properties");
+                    // Folders end with / in the path part → gold; files → white
+                    const isFolder = rawPath.trimEnd().endsWith("/");
+                    const pathColor = isFolder ? "text-[#D4AF37] font-semibold" : "text-[#F4F1EA]";
 
                     return (
                       <div
@@ -360,7 +370,7 @@ export function EcosystemGrid() {
                         }`}
                       >
                         <div className="hidden md:flex md:items-baseline md:justify-between gap-6">
-                          <span className={`${isKeyFile ? "text-[#D4AF37] font-bold" : "text-[#F4F1EA]"} whitespace-pre shrink-0`}>
+                          <span className={`${pathColor} whitespace-pre shrink-0`}>
                             {rawPath.trimEnd()}
                           </span>
                           <span className="text-[#A69E8F]/75 italic text-right whitespace-normal shrink text-[11px]">
@@ -369,7 +379,7 @@ export function EcosystemGrid() {
                         </div>
 
                         <div className="md:hidden space-y-0.5">
-                          <div className={`${isKeyFile ? "text-[#D4AF37] font-bold" : "text-[#F4F1EA]"} whitespace-pre font-mono text-xs`}>
+                          <div className={`${pathColor} whitespace-pre font-mono text-xs`}>
                             {rawPath.trimEnd()}
                           </div>
                           <div className="pl-4 text-[10px] text-[#A69E8F]/80 italic flex items-start gap-1 font-mono">
@@ -381,11 +391,12 @@ export function EcosystemGrid() {
                     );
                   }
 
+                  // No-comment lines are always folders (they end with /)
                   return (
                     <div
                       key={i}
                       onClick={isDirectory && node.id ? () => toggleFolderNode(node.id!) : undefined}
-                      className={`py-1 text-[#D4AF37] font-bold whitespace-pre ${
+                      className={`py-1 text-[#D4AF37] font-semibold whitespace-pre ${
                         isDirectory ? "cursor-pointer hover:bg-white/[0.02] transition-colors rounded px-1 -mx-1" : ""
                       }`}
                     >

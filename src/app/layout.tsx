@@ -24,10 +24,33 @@ const tangerine = Tangerine({
   weight: ["400", "700"],
 });
 
-export const metadata: Metadata = {
-  title: "Primavera | Renaissance Knowledge Base for Spring & Java",
-  description: "High-performance enterprise architecture hub covering Spring Ecosystem, Modern Java 21+, JVM Internal Mechanics, and Microservices.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Primavera | Renaissance Knowledge Base for Spring & Java",
+    description: "High-performance enterprise architecture hub covering Spring Ecosystem, Modern Java 21+, JVM Internal Mechanics, and Microservices.",
+    openGraph: {
+      title: "Primavera | Renaissance Knowledge Base for Spring & Java",
+      description: "High-performance enterprise architecture hub covering Spring Ecosystem, Modern Java 21+, JVM Internal Mechanics, and Microservices.",
+      siteName: "Primavera",
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: "Primavera Renaissance Knowledge Base",
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Primavera | Renaissance Knowledge Base for Spring & Java",
+      description: "High-performance enterprise architecture hub covering Spring Ecosystem, Modern Java 21+, JVM Internal Mechanics, and Microservices.",
+      images: ["/og-image.png"],
+    },
+  };
+}
 
 export default function RootLayout({
   children,
