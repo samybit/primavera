@@ -13,7 +13,7 @@ interface JavaFeature {
 const JAVA_FEATURES: JavaFeature[] = [
   {
     id: "virtual-threads",
-    roman: "VII",
+    roman: "IV",
     title: "Virtual Threads (Project Loom)",
     version: "Java 21 LTS",
     summary: "High-throughput, lightweight threads managed by the JVM instead of OS threads. Million-thread concurrency with traditional synchronous thread-per-request code.",
@@ -28,7 +28,7 @@ const JAVA_FEATURES: JavaFeature[] = [
   },
   {
     id: "jvm",
-    roman: "VIII",
+    roman: "V",
     title: "Generational ZGC (Low-Latency)",
     version: "Java 21 LTS",
     summary: "Scalable zero-pause garbage collector capable of handling terabyte heaps with sub-millisecond maximum pause times.",
@@ -37,7 +37,7 @@ java -XX:+UseZGC -XX:+ZGenerational -jar primavera-app.jar`,
   },
   {
     id: "pattern-matching",
-    roman: "IX",
+    roman: "VI",
     title: "Pattern Matching & Record Patterns",
     version: "Java 21 LTS",
     summary: "Deconstruct records directly in switch expressions with guards, enabling safe functional programming and algebraic type handling.",
@@ -52,7 +52,7 @@ java -XX:+UseZGC -XX:+ZGenerational -jar primavera-app.jar`,
   },
   {
     id: "sealed-classes",
-    roman: "X",
+    roman: "VII",
     title: "Sealed Classes & Exhaustive Switches",
     version: "Java 17 / 21",
     summary: "Restrict subclassing to known permits, guaranteeing compile-time safety and eliminating the need for fallback default cases in switch statements.",
@@ -66,7 +66,7 @@ public record BankTransfer(String iban) implements PaymentMethod {}`,
 
 export function JavaFeaturesSection() {
   return (
-    <section id="virtual-threads" className="w-full py-16 px-6 sm:px-12 max-w-[1400px] border-t border-[#D4AF37]/15">
+    <section className="w-full py-16 px-6 sm:px-12 max-w-[1400px] border-t border-[#D4AF37]/15">
       
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
@@ -96,7 +96,7 @@ export function JavaFeaturesSection() {
           <div
             key={feat.id}
             id={feat.id}
-            className="renaissance-card rounded-2xl p-6 flex flex-col justify-between"
+            className="renaissance-card rounded-2xl p-6 flex flex-col justify-between scroll-mt-6"
           >
             <div>
               <div className="flex items-center justify-between mb-3">

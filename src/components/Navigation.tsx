@@ -99,7 +99,10 @@ export function Navigation() {
     setSearchQuery("");
     if (topic.sectionId && topic.url.startsWith("/#")) {
       const el = document.getElementById(topic.sectionId);
-      if (el) { el.scrollIntoView({ behavior: "smooth" }); return; }
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
     }
     router.push(topic.url);
   };
@@ -108,7 +111,9 @@ export function Navigation() {
     setMobileOpen(false);
     setTimeout(() => {
       const el = document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: "smooth" });
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }, 320);
   };
 

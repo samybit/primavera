@@ -54,7 +54,7 @@ export function EcosystemGrid() {
     ├── spring-context ............ (The Application Context registry holding beans)
     └── spring-core ............... (The absolute bedrock IoC and DI container utils)`;
 
-  const folderContent = `store/                              # The root project folder
+  const folderContent = `[organizationProject]/                              # The root project folder
 ├── .mvn/                           # Hidden folder storing Maven Wrapper configurations
 │   └── wrapper/
 │       ├── maven-wrapper.jar       # Tiny binary that downloads/boots the Maven version
@@ -62,10 +62,10 @@ export function EcosystemGrid() {
 ├── src/                            # Source code root
 │   ├── main/                       # Production-ready code and assets
 │   │   ├── java/                   # Root directory for all Java source code packages
-│   │   │   └── com/
-│   │   │       └── samyspring/
-│   │   │           └── store/       # Main application package matching Group + Artifact
-│   │   │               └── StoreApplication.java # Main entry point class with main method
+│   │   │   └── [topLevelDomain]/
+│   │   │       └── [organizationProject]/
+│   │   │           └── [moduleName]/       # Main application package matching Group + Artifact
+│   │   │               └── Application.java # Main entry point class with main method
 │   │   └── resources/              # Non-code assets used by your application
 │   │       ├── application.properties # Main configuration file (ports, DB URLs, log levels)
 │   │       ├── static/             # Folder for static web frontend assets (HTML, CSS, JS)
@@ -100,10 +100,10 @@ export function EcosystemGrid() {
 • CONTROLLER (C) : Intercepts HTTP requests (@RestController), validates DTOs (@Valid), & delegates to Service layer.`;
 
   return (
-    <div className="w-full space-y-20 py-16 px-5 sm:px-10 lg:px-12 max-w-[1400px]">
+    <div className="w-full py-16 px-5 sm:px-10 lg:px-12 max-w-[1400px]">
       
       {/* ─────────────────── PART 1: THE SPRING ECOSYSTEM ─────────────────── */}
-      <section id="core" className="w-full scroll-mt-24">
+      <section id="core" className="w-full scroll-mt-6 mb-20">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-[#D4AF37]/20 gap-4">
           <div>
             <div className="flex items-center gap-2 text-xs font-mono text-[#D4AF37] uppercase tracking-widest">
@@ -191,7 +191,7 @@ export function EcosystemGrid() {
       </section>
 
       {/* ─────────────────── PART 2: FOLDER STRUCTURE ─────────────────── */}
-      <section id="folder-structure" className="w-full scroll-mt-24 pt-4">
+      <section id="folder-structure" className="w-full scroll-mt-6 mb-20">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-[#D4AF37]/20 gap-4">
           <div>
             <div className="flex items-center gap-2 text-xs font-mono text-[#D4AF37] uppercase tracking-widest">
@@ -272,7 +272,7 @@ export function EcosystemGrid() {
       </section>
 
       {/* ─────────────────── PART 3: SPRING MVC MECHANICS ─────────────────── */}
-      <section id="mvc" className="w-full scroll-mt-24 pt-4">
+      <section id="mvc" className="w-full scroll-mt-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-[#D4AF37]/20 gap-4">
           <div>
             <div className="flex items-center gap-2 text-xs font-mono text-[#E76F51] uppercase tracking-widest">

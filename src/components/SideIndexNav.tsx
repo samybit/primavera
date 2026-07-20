@@ -23,7 +23,7 @@ export function SideIndexNav() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 250;
+      const scrollPosition = window.scrollY + 100;
       for (const item of INDEX_ITEMS) {
         const el = document.getElementById(item.sectionId);
         if (el) {
@@ -43,7 +43,9 @@ export function SideIndexNav() {
   const handleScrollTo = (id: string) => {
     setActiveId(id);
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   // Desktop only — mobile navigation is fully handled by the Navigation drawer
@@ -56,7 +58,7 @@ export function SideIndexNav() {
             <button
               key={item.sectionId}
               onClick={() => handleScrollTo(item.sectionId)}
-              className={`w-full flex items-center justify-between py-0.5 text-left text-xs tracking-wide transition-all ${
+              className={`w-full flex items-center justify-between py-0.5 text-left text-xs tracking-wide transition-all cursor-pointer ${
                 isActive ? "text-white font-bold scale-[1.03]" : "text-white/60 hover:text-white font-medium"
               }`}
             >
