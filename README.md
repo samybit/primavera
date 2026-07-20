@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏛️ PRIMAVERA
+### *A Renaissance Learning Archive for Spring Ecosystem Mechanics & Modern Java*
 
-## Getting Started
+> *"My simple learning archive covering the Spring ecosystem and modern Java."*
 
-First, run the development server:
+---
+
+## 📜 Overview
+
+**Primavera** is an interactive, high-performance visual reference platform built to explore the internal architecture of **Spring Framework 6.x**, **Spring Boot 3.3.x**, and **Modern Java 21+**.
+
+Modeled with Renaissance-inspired aesthetics—dark glassmorphism, gold calligraphic typography, and interactive ASCII topologies—it serves as a structured digital volume cataloging core enterprise mechanics.
+
+---
+
+## ⚜️ Volumes & Curriculum
+
+### **Volume I: Spring Boot Core Architecture**
+
+- **Part I — Framework Hierarchy (`#core`)**
+  - Interactive topology of the Spring Ecosystem (Spring Boot, Spring Data, Spring Security, Spring Cloud, Spring Batch, Spring Integration, Spring Shell, Spring Framework).
+  - Collapsible group folding preserving exact ASCII pipe alignment.
+
+- **Part II — Directory Anatomy (`#folder-structure`)**
+  - Production-ready Maven & Gradle folder blueprint separating Java source packages, static assets, templates, wrappers, and build targets.
+  - Semantic color coding (gold folders vs. white files) and nested directory tree collapse.
+
+- **Part III — Web MVC Request Lifecycle (`#mvc`)**
+  - Interactive 6-step request flow canvas (`HTTP Request` ➔ `DispatcherServlet` ➔ `HandlerMapping` ➔ `Controller` ➔ `HttpMessageConverter` ➔ `200 OK Response`).
+  - Integrated live Code Inspector and deep-dive 3-Pillar reference cards (*Model*, *View*, *Controller*).
+
+---
+
+## 🛠️ Technology Stack
+
+| Category | Technology | Purpose |
+| :--- | :--- | :--- |
+| **Framework** | [Next.js 15 App Router](https://nextjs.org/) | Server Side Rendering & Metadata Optimization |
+| **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) | Custom Renaissance Design System & Glassmorphism |
+| **Scroll Engine** | [Lenis](https://lenis.darkroom.engineering/) | Smooth Inertial Physics Scrolling |
+| **Animations** | [GSAP](https://greensock.com/gsap/) | High-performance timeline animations |
+| **UI Primitives** | [Base UI](https://base-ui.com/) | Accessible unstyled primitives |
+| **Typography** | [Lora](https://fonts.google.com/specimen/Lora), [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans), [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono), [Tangerine](https://fonts.google.com/specimen/Tangerine) | Curated Renaissance typography palette |
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- **Node.js**: `18.17+` or `20.x`
+- **npm**: `9.x+`
+
+### Installation & Execution
 
 ```bash
+# 1. Clone the repository
+git clone https://github.com/your-username/primavera.git
+cd primavera
+
+# 2. Install dependencies
+npm install
+
+# 3. Launch development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# 4. Build production bundle
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🏛️ Project Directory Structure
 
-## Learn More
+```text
+primavera/
+├── public/
+│   ├── images/              # Renaissance artwork assets
+│   └── og-image.png         # OpenGraph social share card
+├── src/
+│   ├── app/
+│   │   ├── globals.css      # Core Renaissance design system & tokens
+│   │   ├── layout.tsx       # Root layout with Google Fonts & generateMetadata
+│   │   └── page.tsx         # Main page layout container
+│   └── components/
+│       ├── EcosystemGrid.tsx# Volume I interactive hierarchy & MVC sequence flow
+│       ├── HeroSection.tsx  # Fullscreen hero banner with calligraphic drop-cap
+│       ├── Navigation.tsx   # Glassmorphic header & navigation drawer
+│       └── SideIndexNav.tsx # Fixed Roman numeral side index navigation
+└── README.md
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📜 License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Distributed under the MIT License. Crafted with Renaissance precision.
