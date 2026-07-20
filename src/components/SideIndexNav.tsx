@@ -19,23 +19,29 @@ const INDEX_ITEMS: IndexItem[] = [
 ];
 
 export function SideIndexNav() {
-  const [activeId, setActiveId] = useState("core");
+  const [activeId, setActiveId] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 100;
+      const scrollPosition = window.scrollY + 200;
+      let matchedId: string | null = null;
+
       for (const item of INDEX_ITEMS) {
         const el = document.getElementById(item.sectionId);
         if (el) {
           const top = el.offsetTop;
           const height = el.offsetHeight;
           if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveId(item.sectionId);
+            matchedId = item.sectionId;
             break;
           }
         }
       }
+
+      setActiveId(matchedId);
     };
+
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
